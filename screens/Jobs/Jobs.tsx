@@ -104,9 +104,9 @@ export class JobsScreen extends React.Component<JobsScreenProps, JobsScreenState
     // Step 0: Clone the jobs input
     const newJobs: JobRecord[] = cloneDeep(jobs);
     console.log(newJobs, availability);
-
     // Step 1: Remove jobs where the schedule doesn't align with the users' availability.
-
+    newJobs.forEach((job, __, __) => {
+    });
     // Step 2: Save into state
     this.setState({ jobs: newJobs });
   };

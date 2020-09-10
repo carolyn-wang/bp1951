@@ -3,22 +3,33 @@ import { Dimensions } from 'react-native';
 import { Colors } from '@assets/Colors';
 
 const win = Dimensions.get('window');
+/*RESOURCES:
+TS Documentation: https://www.typescriptlang.org/docs
+*/
 
+// flex: component expand and shrink dynamically based on available space
+// Usually, use flex: 1 (component fills all available space
+// The larger the flex given, the higher the ratio of space a component takes compared to siblings
+//  source: https://reactnative.dev/docs/height-and-width
 export const ImageContainer = styled.View`
   align-items: center;
   flex: 0.95;
 `;
 
+// aspect ratio: ratio of image width to its height
+// after some testing, larger aspect ratio decreases height/excess space
+
+//adjusted width ratio to screen height
 export const LoginImg = styled.Image`
-  width: ${win.height * 1.4};
+  width: ${win.height * .6};
   height: null;
-  aspect-ratio: 1;
+  aspect-ratio: 1.2;
 `;
 
 export const LoginHeader = styled.Text`
-  font-size: 40px;
+  font-size: 35px;
   font-family: source-sans-pro-bold;
-  margin: 12.5% 0 5% 10%;
+  margin: 10% 0 2% 10%;
 `;
 
 export const LoginInput = styled.TextInput`
@@ -47,7 +58,7 @@ export const LoginButtonText = styled.Text`
 
 export const LoginText = styled.Text`
   margin: 0 10% 0 10%;
-  font-size: 20;
+  font-size: 18;
 `;
 
 export const GuestButtonText = styled.Text`
