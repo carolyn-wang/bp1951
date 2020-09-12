@@ -24,6 +24,11 @@ interface LoginScreenProps {
  * - Shake your phone to reload the app! 
  * - Hit Command + S in VSCode to save your code. The simulator will automatically reload.
  */
+
+ /* TO DO:
+- move image above Welcome header
+- decrease text input heights & image size
+*/
 export default class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
   static contextType = GlobalContext;
 
@@ -44,10 +49,16 @@ export default class LoginScreen extends React.Component<LoginScreenProps, Login
     }
   }
 
+// 1. Moved Image Container to earlier in element order
+// 2. Resize logo: https://frescolib.org/docs/resizing.html with resizeMethod, looked at documentation; changed Img width in styles.ts as well
+
   render() {
     return (
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <ScrollView style={{ flex: 1 }}>
+          <ImageContainer>
+            <LoginImg source={require('@assets/imgs/colored_icon.png')} resizeMode="center"/>
+          </ImageContainer>
           <LoginHeader>Welcome</LoginHeader>
           <LoginText>Username</LoginText>
           <LoginInput
@@ -62,9 +73,6 @@ export default class LoginScreen extends React.Component<LoginScreenProps, Login
             }
             value={this.state.user.uname}
           />
-          <ImageContainer>
-            <LoginImg source={require('@assets/imgs/colored_icon.png')} resizeMode="center" />
-          </ImageContainer>
           <LoginText>Password</LoginText>
           <LoginInput
             secureTextEntry
