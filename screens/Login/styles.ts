@@ -53,7 +53,7 @@ export const LoginButton = styled.TouchableOpacity`
 `;
 
 export const LoginButtonText = styled.Text`
-  font-size: 20;
+  font-size: 18;
 `;
 
 export const LoginText = styled.Text`

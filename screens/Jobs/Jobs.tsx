@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ToolbarAndroid } from 'react-native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { GlobalContext } from '@components/ContextProvider';
 import { BaseScreen } from '../BaseScreen/BaseScreen';
@@ -42,7 +42,7 @@ interface JobsScreenProps {
  * Bonus: Try wrapping the filtering logic in an overlay component.
  *
  * Sources:
- * - Compontent Library: https://react-native-elements.github.io/react-native-elements/docs/button.html
+ * - Compontent Library: https://react-native-elements.github.io/react-native-elements/docs/listitem
  *
  */
 export class JobsScreen extends React.Component<JobsScreenProps, JobsScreenState> {
@@ -100,15 +100,50 @@ export class JobsScreen extends React.Component<JobsScreenProps, JobsScreenState
   /**
    * TODO: Write filterJobs function that updates the components' state with jobs that align with the users' weekly schedule.
    */
+  /**
+   * Loops through jobs record then
+   * removes jobs where schedule days do not overlap with Availability (user availability)
+   */
   filterJobs = (jobs: JobRecord[], availability: Availability): void => {
     // Step 0: Clone the jobs input
-    const newJobs: JobRecord[] = cloneDeep(jobs);
-    console.log(newJobs, availability);
+    // changed constant newJobs to let
+    let newJobs: JobRecord[] = cloneDeep(jobs);
+
     // Step 1: Remove jobs where the schedule doesn't align with the users' availability.
-    newJobs.forEach((job, __, __) => {
-    });
+    // use map() to for loop through newJobs record [instead of for() or forEach() (faster than forEach())]
+
+    for(let i =0; i< newJobs.length; i++){
+      if (newJobs[i].schedule.includes("Monday") && !availability.monday){
+          newJobs.splice(i,1) // can't use delete() because operator does not amend array size
+          i--
+        }
+      else if (newJobs[i].schedule.includes("Tuesday") && !availability.tuesday){
+        newJobs.splice(i,1)
+        i--
+      }
+      else if (newJobs[i].schedule.includes("Wednesday") && !availability.wednesday){
+        newJobs.splice(i,1)
+        i--
+      }
+      else if (newJobs[i].schedule.includes("Thursday") && !availability.thursday){
+        newJobs.splice(i,1)
+        i--
+      }
+      else if (newJobs[i].schedule.includes("Friday") && !availability.friday){
+        newJobs.splice(i,1)
+        i--
+      }
+      }
+    
+    // Attempts to rewrite code in React js: 
+    //let newArray = newJobs.filter(newJobs => newJobs.schedule.includes("monday")) 
+
+    //newJobs = this.state.newJobs.slice();
+    //newJobs = newJobs.filter(job => job.avail !== id);
+
+
     // Step 2: Save into state
-    this.setState({ jobs: newJobs });
+    this.setState({ jobs: newJobs});
   };
 
   getStatus = (jobs: JobRecord[]): Status => {
